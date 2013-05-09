@@ -10,7 +10,9 @@ local TEST_CASE = lunit.TEST_CASE
 local _ENV = TEST_CASE"some_test_case"
 
 function test_1()
-  assert_true(true)
+  local foo = require "foo"
+  assert_function(foo.test_true)
+  assert_true(foo.test_true())
 end
 
 function test_2()

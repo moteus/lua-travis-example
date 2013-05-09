@@ -28,6 +28,7 @@ before_install:
 install:
   - sudo luarocks-$LUA_VER install lunitx
   - cd $TRAVIS_BUILD_DIR
+  - sudo luarocks-$LUA_VER make foo-scm-0.rockspec
 
 script: "lunit.sh -i $LUA test.lua"
 
