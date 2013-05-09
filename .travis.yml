@@ -4,10 +4,9 @@ env:
   global:
     - LUAROCKS_BASE=luarocks-2.0.13
   matrix:
-    - "LUA=lua5.1 LUA_DEV=liblua5.1-dev     LUA_VER=5.1 LUA_SFX=5.1     LUA_LIB=lua5.1"
-    - "LUA=lua5.2 LUA_DEV=liblua5.2-dev     LUA_VER=5.2 LUA_SFX=5.2     LUA_LIB=lua5.2"
-    allow_failures:
-      - "LUA=luajit LUA_DEV=libluajit-5.1-dev LUA_VER=5.1 LUA_SFX=jit5.1 LUA_LIB=luajit-5.1"
+    - "LUA=lua5.1 LUA_DEV=liblua5.1-dev     LUA_VER=5.1 LUA_SFX=5.1    LUA_LIB=lua5.1"
+    - "LUA=lua5.2 LUA_DEV=liblua5.2-dev     LUA_VER=5.2 LUA_SFX=5.2    LUA_LIB=lua5.2"
+    - "LUA=luajit LUA_DEV=libluajit-5.1-dev LUA_VER=5.1 LUA_SFX=jit5.1 LUA_LIB=luajit-5.1"
 
 branches:
   only:
@@ -25,10 +24,10 @@ before_install:
     --lua-version=$LUA_VER --lua-suffix=$LUA_SFX 
   - sudo make 
   - sudo make install
+  - cd $TRAVIS_BUILD_DIR
 
 install:
   - sudo luarocks-$LUA_VER install lunitx
-  - cd $TRAVIS_BUILD_DIR
   - sudo luarocks-$LUA_VER make foo-scm-0.rockspec
 
 script: "lunit.sh -i $LUA test.lua"
