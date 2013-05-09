@@ -6,7 +6,8 @@ env:
   matrix:
     - "LUA=lua5.1 LUA_DEV=liblua5.1-dev     LUA_VER=5.1 LUA_SFX=5.1     LUA_LIB=lua5.1"
     - "LUA=lua5.2 LUA_DEV=liblua5.2-dev     LUA_VER=5.2 LUA_SFX=5.2     LUA_LIB=lua5.2"
-    - "LUA=luajit LUA_DEV=libluajit-5.1-dev LUA_VER=5.1 LUA_SFX=jit-5.1 LUA_LIB=luajit-5.1"
+    allow_failures:
+      - "LUA=luajit LUA_DEV=libluajit-5.1-dev LUA_VER=5.1 LUA_SFX=jit5.1 LUA_LIB=luajit-5.1"
 
 branches:
   only:
