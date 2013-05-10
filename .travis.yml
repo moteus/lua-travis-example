@@ -16,7 +16,7 @@ before_install:
   - "sudo apt-get install $LUA"
   - "sudo apt-get install $LUA_DEV"
   - "lua$LUA_SFX -v"
-  # Install a recent luarocks release locally.
+  # Install a recent luarocks release
   - wget http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz
   - tar zxvpf $LUAROCKS_BASE.tar.gz
   - cd $LUAROCKS_BASE
