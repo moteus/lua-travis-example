@@ -30,7 +30,7 @@ install:
   - sudo luarocks install lunitx
   - sudo luarocks make foo-scm-0.rockspec
 
-script: "lunit.sh -i $LUA test.lua"
+script: "lunit.sh -i lua$LUA_SFX test.lua"
 
 notifications:
   email:
