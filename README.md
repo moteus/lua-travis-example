@@ -2,5 +2,5 @@
 
 ### Cons
  * Manual download luarocks with specific version
- * Explicit set LuaJIT version (2.0.0-beta9)
+
  
