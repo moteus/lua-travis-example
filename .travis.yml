@@ -5,10 +5,12 @@ env:
     - LUAROCKS_VER=2.0.13
     - LUAROCKS_BASE=luarocks-$LUAROCKS_VER
     - LUAROCKS_INSTALL=wget
+    - LUAROCKS_GITTAG=master
+    # - LUAROCKS_GITTAG=v$LUAROCKS_VER
   matrix:
     - LUA=lua5.1 LUA_DEV=liblua5.1-dev     LUA_VER=5.1 LUA_SFX=5.1 LUA_INCDIR=/usr/include/lua5.1
-    - LUA=lua5.2 LUA_DEV=liblua5.2-dev     LUA_VER=5.2 LUA_SFX=5.2 LUA_INCDIR=/usr/include/lua5.2
-    - LUA=luajit LUA_DEV=libluajit-5.1-dev LUA_VER=5.1 LUA_SFX=jit LUA_INCDIR=/usr/include/luajit-2.0
+    # - LUA=lua5.2 LUA_DEV=liblua5.2-dev     LUA_VER=5.2 LUA_SFX=5.2 LUA_INCDIR=/usr/include/lua5.2
+    # - LUA=luajit LUA_DEV=libluajit-5.1-dev LUA_VER=5.1 LUA_SFX=jit LUA_INCDIR=/usr/include/luajit-2.0
 
 branches:
   only:
@@ -25,7 +27,7 @@ before_install:
   - if [ $LUAROCKS_INSTALL = "git" ]; then
       git clone https://github.com/keplerproject/luarocks.git;
       cd luarocks;
-      git checkout v$LUAROCKS_VER;
+      git checkout $LUAROCKS_GITTAG;
     else
       wget http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz;
       tar zxvpf $LUAROCKS_BASE.tar.gz;
@@ -39,9 +41,15 @@ before_install:
 
 install:
   - sudo luarocks install lunitx
+  - sudo luarocks list
+  - sudo luarocks install date
+  - sudo luarocks list
+  - sudo luarocks show date --rock-dir
+  - sudo luarocks remove date
   - sudo luarocks make foo-scm-0.rockspec
 
-script: "lunit.sh -i lua$LUA_SFX test.lua"
+script: 
+  - lunit.sh -i lua$LUA_SFX test.lua
 
 notifications:
   email:
