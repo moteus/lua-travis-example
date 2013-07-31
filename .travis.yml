@@ -2,9 +2,9 @@ language: erlang
 
 env:
   global:
-    - LUAROCKS_VER=2.1.0-rc3
+    - LUAROCKS_VER=2.1.0
     - LUAROCKS_BASE=luarocks-$LUAROCKS_VER
-    - LUAROCKS_INSTALL=wget
+    - LUAROCKS_INSTALL=git
     - LUAROCKS_GITTAG=master
     # - LUAROCKS_GITTAG=v$LUAROCKS_VER
   matrix:
