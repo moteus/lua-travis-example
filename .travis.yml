@@ -41,11 +41,6 @@ before_install:
 
 install:
   - sudo luarocks install lunitx
-  - sudo luarocks list
-  - sudo luarocks install date
-  - sudo luarocks list
-  - sudo luarocks show date --rock-dir
-  - sudo luarocks remove date
   - sudo luarocks make foo-scm-0.rockspec
 
 script: 
