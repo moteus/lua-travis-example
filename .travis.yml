@@ -42,6 +42,7 @@ before_install:
 install:
   - git clone https://github.com/zeromq/zeromq4-x.git ./zeromq4
   - cd ./zeromq4
+  - ./autogen.sh
   - ./configure
   - sudo make
   - sudo make install
