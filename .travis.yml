@@ -9,8 +9,8 @@ env:
     # - LUAROCKS_GITTAG=v$LUAROCKS_VER
   matrix:
     - LUA=lua5.1 LUA_DEV=liblua5.1-dev     LUA_VER=5.1 LUA_SFX=5.1 LUA_INCDIR=/usr/include/lua5.1
-    - LUA=lua5.2 LUA_DEV=liblua5.2-dev     LUA_VER=5.2 LUA_SFX=5.2 LUA_INCDIR=/usr/include/lua5.2
-    - LUA=luajit LUA_DEV=libluajit-5.1-dev LUA_VER=5.1 LUA_SFX=jit LUA_INCDIR=/usr/include/luajit-2.0
+    # - LUA=lua5.2 LUA_DEV=liblua5.2-dev     LUA_VER=5.2 LUA_SFX=5.2 LUA_INCDIR=/usr/include/lua5.2
+    # - LUA=luajit LUA_DEV=libluajit-5.1-dev LUA_VER=5.1 LUA_SFX=jit LUA_INCDIR=/usr/include/luajit-2.0
 
 branches:
   only:
@@ -40,6 +40,11 @@ before_install:
   - cd $TRAVIS_BUILD_DIR
 
 install:
+  - git clone https://github.com/zeromq/zeromq4-x.git ./zeromq4
+  - cd ./zeromq4
+  - ./configure
+  - sudo make
+  - sudo make install
   - sudo luarocks install lunitx
   - sudo luarocks make foo-scm-0.rockspec
 
