@@ -8,8 +8,8 @@ env:
     - LUAROCKS_GITTAG=master
     # - LUAROCKS_GITTAG=v$LUAROCKS_VER
   matrix:
-    - LUA=lua5.1 LUA_DEV=liblua5.1-dev     LUA_VER=5.1 LUA_SFX=5.1 LUA_INCDIR=/usr/include/lua5.1
-    - LUA=lua5.2 LUA_DEV=liblua5.2-dev     LUA_VER=5.2 LUA_SFX=5.2 LUA_INCDIR=/usr/include/lua5.2
+    # - LUA=lua5.1 LUA_DEV=liblua5.1-dev     LUA_VER=5.1 LUA_SFX=5.1 LUA_INCDIR=/usr/include/lua5.1
+    # - LUA=lua5.2 LUA_DEV=liblua5.2-dev     LUA_VER=5.2 LUA_SFX=5.2 LUA_INCDIR=/usr/include/lua5.2
     - LUA=luajit LUA_DEV=libluajit-5.1-dev LUA_VER=5.1 LUA_SFX=jit LUA_INCDIR=/usr/include/luajit-2.0
 
 branches:
@@ -40,9 +40,11 @@ before_install:
 
 install:
   - sudo luarocks install lunitx
+  - sudo luarocks install https://raw.github.com/moteus/lzmq/master/rockspecs/lzmq-ffi-scm-0.rockspec
   - sudo luarocks make foo-scm-0.rockspec
 
 script: 
+  - luajit -e"s=require'lzmq'.utils.stopwatch():start() require'lzmq.timer'.sleep(1000) print(s:stop())"
   - lunit.sh -i lua$LUA_SFX test.lua
 
 notifications:
