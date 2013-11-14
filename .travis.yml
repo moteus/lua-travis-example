@@ -44,7 +44,7 @@ install:
   - sudo luarocks make foo-scm-0.rockspec
 
 script: 
-  - luajit -e"s=require'lzmq'.utils.stopwatch():start() require'lzmq.timer'.sleep(1000) print(s:stop())"
+  - luajit -e"s=require'lzmq'.utils.stopwatch():start() require'lzmq.timer'.sleep(1000) print(s:stop()/1000000)"
   - lunit.sh -i lua$LUA_SFX test.lua
 
 notifications:
