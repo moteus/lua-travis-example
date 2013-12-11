@@ -39,13 +39,27 @@ before_install:
   - cd $TRAVIS_BUILD_DIR
 
 install:
-  - sudo luarocks install lunitx
-  - sudo luarocks install https://raw.github.com/moteus/lzmq/master/rockspecs/lzmq-ffi-scm-0.rockspec
-  - sudo luarocks make foo-scm-0.rockspec
+  # install libzmq
+  - cd $TRAVIS_BUILD_DIR
+  - sudo apt-get remove libzmq3
+  - git clone https://github.com/zeromq/zeromq4-x.git ./zeromq4
+  - cd ./zeromq4;
+  - ./autogen.sh;
+  - ./configure;
+  - sudo make;
+  - sudo make install;
+  
+  - cd $TRAVIS_BUILD_DIR
+  - ls /usr/local/lib
+
+  #### Origin code
+  # - sudo luarocks install lunitx
+  # - sudo luarocks make foo-scm-0.rockspec
+  #############################################
 
 script: 
-  - luajit -e"s=require'lzmq'.utils.stopwatch():start() require'lzmq.timer'.sleep(1000) print(tonumber(s:stop())/1000000)"
-  - lunit.sh -i lua$LUA_SFX test.lua
+  # - lunit.sh -i lua$LUA_SFX test.lua
+  - strace -s 512 luajit -e"print(require'ffi'.load('zmq'))"
 
 notifications:
   email:
