@@ -8,8 +8,8 @@ env:
     - LUAROCKS_GITTAG=master
     # - LUAROCKS_GITTAG=v$LUAROCKS_VER
   matrix:
-    # - LUA=lua5.1 LUA_DEV=liblua5.1-dev     LUA_VER=5.1 LUA_SFX=5.1 LUA_INCDIR=/usr/include/lua5.1
-    # - LUA=lua5.2 LUA_DEV=liblua5.2-dev     LUA_VER=5.2 LUA_SFX=5.2 LUA_INCDIR=/usr/include/lua5.2
+    - LUA=lua5.1 LUA_DEV=liblua5.1-dev     LUA_VER=5.1 LUA_SFX=5.1 LUA_INCDIR=/usr/include/lua5.1
+    - LUA=lua5.2 LUA_DEV=liblua5.2-dev     LUA_VER=5.2 LUA_SFX=5.2 LUA_INCDIR=/usr/include/lua5.2
     - LUA=luajit LUA_DEV=libluajit-5.1-dev LUA_VER=5.1 LUA_SFX=jit LUA_INCDIR=/usr/include/luajit-2.0
 
 branches:
@@ -39,27 +39,11 @@ before_install:
   - cd $TRAVIS_BUILD_DIR
 
 install:
-  # install libzmq
-  - cd $TRAVIS_BUILD_DIR
-  - sudo apt-get remove libzmq3
-  - git clone https://github.com/zeromq/zeromq4-x.git ./zeromq4
-  - cd ./zeromq4;
-  - ./autogen.sh;
-  - ./configure;
-  - sudo make;
-  - sudo make install;
-  
-  - cd $TRAVIS_BUILD_DIR
-  - ls /usr/local/lib
-
-  #### Origin code
-  # - sudo luarocks install lunitx
-  # - sudo luarocks make foo-scm-0.rockspec
-  #############################################
+  - sudo luarocks install lunitx
+  - sudo luarocks make foo-scm-0.rockspec
 
 script: 
-  # - lunit.sh -i lua$LUA_SFX test.lua
-  - strace -s 512 luajit -e"print(require'ffi'.load('zmq'))"
+  - lunit.sh -i lua$LUA_SFX test.lua
 
 notifications:
   email:
