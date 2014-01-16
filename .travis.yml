@@ -3,10 +3,10 @@ language: objective-c
 env:
   global:
     - PLATFORM=macosx
-    - LUAROCKS_VER=2.1.0
+    - LUAROCKS_VER=2.1.2
     - LUAROCKS_BASE=luarocks-$LUAROCKS_VER
     - LUAROCKS_INSTALL=wget
-    - LUAROCKS_GITTAG=master
+    # - LUAROCKS_GITTAG=master
     # - LUAROCKS_GITTAG=v$LUAROCKS_VER
   matrix:
     - LUA=lua5.1 LUA_SFX=    ZMQ_VER=libzmq
