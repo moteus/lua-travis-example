@@ -1,6 +1,7 @@
 # A script for setting up environment for travis-ci testing.
 # Sets up Lua and Luarocks.
 # LUA must be "lua5.1", "lua5.2" or "luajit".
+# PLATFORM must be "linux" or "macosx".
 
 if [ "$LUA" == "luajit" ]; then
   curl http://luajit.org/download/LuaJIT-2.0.2.tar.gz | tar xz
@@ -15,7 +16,7 @@ else
     curl http://www.lua.org/ftp/lua-5.2.3.tar.gz | tar xz
     cd lua-5.2.3;
   fi
-  sudo make macosx install
+  sudo make $PLATFORM install
   cd $TRAVIS_BUILD_DIR;
 fi
 
