@@ -15,7 +15,7 @@ else
     curl http://www.lua.org/ftp/lua-5.2.3.tar.gz | tar xz
     cd lua-5.2.3;
   fi
-  sudo make linux install
+  sudo make macosx install
   cd $TRAVIS_BUILD_DIR;
 fi
 
