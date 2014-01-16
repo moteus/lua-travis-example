@@ -8,9 +8,9 @@ env:
     - LUAROCKS_GITTAG=master
     # - LUAROCKS_GITTAG=v$LUAROCKS_VER
   matrix:
-    - LUA=lua5.1 LUA_SFX=
-    - LUA=lua5.2 LUA_SFX=
-    - LUA=luajit LUA_SFX=jit
+    - LUA=lua5.1 LUA_SFX=    ZMQ_VER=zeromq3
+    - LUA=lua5.2 LUA_SFX=    ZMQ_VER=zeromq4
+    - LUA=luajit LUA_SFX=jit ZMQ_VER=zeromq3
 
 branches:
   only:
@@ -18,6 +18,12 @@ branches:
 
 before_install:
   - bash .travis_setup.sh
+  - git clone https://github.com/zeromq/$ZMQ_VER-x.git ./$ZMQ_VER;
+  - cd ./$ZMQ_VER;
+  - ./autogen.sh;
+  - ./configure;
+  - sudo make;
+  - sudo make install;
 
 install:
   - sudo luarocks install lunitx

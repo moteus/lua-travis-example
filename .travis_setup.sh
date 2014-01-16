@@ -1,6 +1,6 @@
 # A script for setting up environment for travis-ci testing.
 # Sets up Lua and Luarocks.
-# LUA must be "Lua 5.1", "Lua 5.2" or "LuaJIT 2.0".
+# LUA must be "lua5.1", "lua5.2" or "luajit".
 
 if [ "$LUA" == "luajit" ]; then
   curl http://luajit.org/download/LuaJIT-2.0.2.tar.gz | tar xz
