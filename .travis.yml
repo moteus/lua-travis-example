@@ -3,11 +3,7 @@ language: erlang
 env:
   global:
     - PLATFORM=linux
-    - LUAROCKS_VER=2.1.2
-    - LUAROCKS_BASE=luarocks-$LUAROCKS_VER
-    - LUAROCKS_INSTALL=wget
-    # - LUAROCKS_GITTAG=master
-    # - LUAROCKS_GITTAG=v$LUAROCKS_VER
+    - LUAROCKS_VER=2.1.0
   matrix:
     - LUA=lua5.1 LUA_SFX=    ZMQ_VER=libzmq
     - LUA=lua5.2 LUA_SFX=    ZMQ_VER=zeromq3

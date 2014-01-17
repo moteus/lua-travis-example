@@ -7,7 +7,7 @@ if [ "$LUA" == "luajit" ]; then
   curl http://luajit.org/download/LuaJIT-2.0.2.tar.gz | tar xz
   cd LuaJIT-2.0.2
   make && sudo make install
-  cd ..;
+  cd $TRAVIS_BUILD_DIR;
 else
   if [ "$LUA" == "lua5.1" ]; then
     curl http://www.lua.org/ftp/lua-5.1.5.tar.gz | tar xz
@@ -20,14 +20,9 @@ else
   cd $TRAVIS_BUILD_DIR;
 fi
 
-if [ $LUAROCKS_INSTALL = "git" ]; then
-  git clone https://github.com/keplerproject/luarocks.git
-  cd luarocks
-  git checkout $LUAROCKS_GITTAG;
-else
-  curl http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz | tar xz
-  cd $LUAROCKS_BASE;
-fi
+LUAROCKS_BASE=luarocks-$LUAROCKS_VER
+curl http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz | tar xz
+cd $LUAROCKS_BASE;
 
 if [ "$LUA" == "luajit" ]; then
   ./configure --lua-suffix=jit --with-lua-include=/usr/local/include/luajit-2.0;
