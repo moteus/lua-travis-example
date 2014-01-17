@@ -3,7 +3,7 @@ language: objective-c
 env:
   global:
     - PLATFORM=macosx
-    - LUAROCKS_VER=2.1.0
+    - LUAROCKS_VER=2.1.2
   matrix:
     - LUA=lua5.1 LUA_SFX=    ZMQ_VER=libzmq
     - LUA=lua5.2 LUA_SFX=    ZMQ_VER=zeromq3
