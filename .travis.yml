@@ -3,7 +3,7 @@ language: objective-c
 env:
   global:
     - PLATFORM=macosx
-    - LUAROCKS_VER=2.1.2
+    - LUAROCKS_VER=2.1.0
   matrix:
     - LUA=lua5.1 LUA_SFX=    ZMQ_VER=libzmq
     - LUA=lua5.2 LUA_SFX=    ZMQ_VER=zeromq3
@@ -15,19 +15,19 @@ branches:
 
 before_install:
   - bash .travis/setup_lua.sh
-  # - if [ "$ZMQ_VER" == "libzmq" ]; then
-  #     bash .travis/setup_sodium.sh;
-  #   fi
-  # - bash .travis/setup_zmq.sh
+  - if [ "$ZMQ_VER" == "libzmq" ]; then
+      bash .travis/setup_sodium.sh;
+    fi
+  - bash .travis/setup_zmq.sh
 
 install:
   - sudo luarocks install lunitx
   - sudo luarocks make foo-scm-0.rockspec
-  - sudo luarocks make lzmq-timer-scm-0.rockspec
+  - sudo luarocks install https://raw2.github.com/moteus/lzmq/master/rockspecs/lzmq-scm-0.rockspec
 
 script: 
   - lunit.sh -i lua$LUA_SFX test.lua
-  - lua$LUA_SFX -llzmq.timer -v
+  - lua$LUA_SFX -llzmq -llzmq.timer -v
 
 notifications:
   email:
