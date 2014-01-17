@@ -1,8 +1,8 @@
-language: objective-c
+language: erlang
 
 env:
   global:
-    - PLATFORM=macosx
+    - PLATFORM=linux
     - LUAROCKS_VER=2.1.2
     - LUAROCKS_BASE=luarocks-$LUAROCKS_VER
     - LUAROCKS_INSTALL=wget
