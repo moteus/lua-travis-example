@@ -1,8 +1,8 @@
-language: objective-c
+language: erlang
 
 env:
   global:
-    - PLATFORM=macosx
+    - PLATFORM=linux
     - LUAROCKS_VER=2.1.0
   matrix:
     - LUA=lua5.1 LUA_SFX=
@@ -17,10 +17,11 @@ before_install:
   - bash .travis/setup_lua.sh
 
 install:
-  - sudo luarocks install lunitx
+  - sudo luarocks install --server=http://rocks.moonscript.org lunitx
   - sudo luarocks make foo-scm-0.rockspec
 
 script: 
+  - cd test
   - lunit.sh -i lua$LUA_SFX test.lua
 
 notifications:

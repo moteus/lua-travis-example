@@ -21,6 +21,7 @@ build = {
   type = "builtin",
 
   modules = {
-    foo = "foo.c"
+    [ "foo.core" ] = "src/foo.c";
+    [ "foo"      ] = "src/lua/foo.lua";
   }
 }

@@ -19,4 +19,10 @@ function test_2()
   assert_false(false)
 end
 
+function test_3()
+  local foo = require "foo"
+  assert_function(foo.test_false)
+  assert_false(foo.test_false())
+end
+
 if not HAS_RUNNER then lunit.run() end
