@@ -33,3 +33,13 @@ fi
 make && sudo make install
 
 cd $TRAVIS_BUILD_DIR
+
+rm -rf $LUAROCKS_BASE
+
+if [ "$LUA" == "luajit" ]; then
+  rm -rf LuaJIT-2.0.2;
+elif [ "$LUA" == "lua5.1" ]; then
+  rm -rf lua-5.1.5;
+elif [ "$LUA" == "lua5.2" ]; then
+  rm -rf lua-5.2.3;
+fi
