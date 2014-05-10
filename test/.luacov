@@ -45,8 +45,6 @@ return {
       {"/usr/local/share/lua/5.[12]", "src/lua"};
     },
 
-    merge = "c.report.json";
-
   },
 
 }
