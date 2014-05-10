@@ -21,17 +21,17 @@ install:
   - sudo luarocks install --only-server=http://luarocks.org/repositories/rocks-scm luacov scm
   - sudo luarocks install https://raw.githubusercontent.com/moteus/luacov-coveralls/master/rockspecs/luacov-coveralls-scm-0.rockspec
   - sudo luarocks install lunitx
-  - sudo luarocks make foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
+  - sudo luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
 
 script: 
   - cd test
   - lunit.sh -i lua$LUA_SFX test.lua
 
 after_success:
-  - cd $TRAVIS_BUILD_DIR
-  - coveralls --dump test/c.report.json
-  - cd test
-  - lua$LUA_SFX report_coverage.lua
+  - coveralls -b .. -r .. --dump c.report.json
+  - ls ..
+  - ls
+  - luacov-coveralls -j c.report.json
   - 'curl -v -H "Content-Type: multipart/related" --form "json_file=@luacov.report.json;type=application/json" https://coveralls.io/api/v1/jobs'
 
 notifications:
