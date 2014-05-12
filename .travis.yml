@@ -18,7 +18,7 @@ before_install:
   - sudo pip install cpp-coveralls
 
 install:
-  - sudo luarocks install --only-server=http://luarocks.org/repositories/rocks-scm luacov scm
+  - sudo luarocks install https://raw.githubusercontent.com/moteus/luacov/moteus-rockspec/rockspecs/luacov-scm.mot-1.rockspec
   - sudo luarocks install https://raw.githubusercontent.com/moteus/luacov-coveralls/master/rockspecs/luacov-coveralls-scm-0.rockspec
   - sudo luarocks install lunitx
   - sudo luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
