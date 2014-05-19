@@ -14,28 +14,23 @@ branches:
     - master
 
 before_install:
-  - sudo apt-get install build-essential
-  - sudo apt-get install gcc-4.4
-  - gcc -v
   - bash .travis/setup_lua.sh
   - sudo pip install cpp-coveralls
 
 install:
-  # - sudo luarocks install https://raw.githubusercontent.com/moteus/luacov/moteus-rockspec/rockspecs/luacov-scm.mot-1.rockspec
-  # - sudo luarocks install https://raw.githubusercontent.com/moteus/luacov-coveralls/master/rockspecs/luacov-coveralls-scm-0.rockspec
-  # - sudo luarocks install lunitx
-  # - sudo luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
-  - sudo luarocks make rockspecs/foo-scm-0.rockspec
+  - sudo luarocks install https://raw.githubusercontent.com/moteus/luacov/moteus-rockspec/rockspecs/luacov-scm.mot-1.rockspec
+  - sudo luarocks install https://raw.githubusercontent.com/moteus/luacov-coveralls/master/rockspecs/luacov-coveralls-scm-0.rockspec
   - sudo luarocks install lunitx
+  - sudo luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
 
 script: 
   - cd test
   - lunit.sh -i lua$LUA_SFX test.lua
 
 after_success:
-  # - coveralls -b .. -r .. --dump c.report.json
-  # - luacov-coveralls -j c.report.json
-  # - curl -v --form "json_file=@luacov.report.json;type=application/json" https://coveralls.io/api/v1/jobs
+  - coveralls -b .. -r .. --dump c.report.json
+  - luacov-coveralls -j c.report.json
+  - curl -v --form "json_file=@luacov.report.json;type=application/json" https://coveralls.io/api/v1/jobs
 
 notifications:
   email:
