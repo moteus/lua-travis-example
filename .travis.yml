@@ -3,7 +3,7 @@ language: erlang
 env:
   global:
     - PLATFORM=linux
-    - LUAROCKS_VER=2.1.1
+    - LUAROCKS_VER=2.2.0beta1
   matrix:
     - LUA=lua5.1 LUA_SFX=
     - LUA=lua5.2 LUA_SFX=
@@ -19,7 +19,7 @@ before_install:
 
 install:
   - sudo luarocks install https://raw.githubusercontent.com/moteus/luacov/moteus-rockspec/rockspecs/luacov-scm.mot-1.rockspec
-  - sudo luarocks install https://raw.githubusercontent.com/moteus/luacov-coveralls/master/rockspecs/luacov-coveralls-scm-0.rockspec
+  - sudo luarocks install luacov-coveralls scm
   - sudo luarocks install lunitx
   - sudo luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
 
