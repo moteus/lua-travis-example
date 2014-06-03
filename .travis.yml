@@ -16,11 +16,10 @@ branches:
 before_install:
   - bash .travis/setup_lua.sh
   - sudo pip install cpp-coveralls
+  - sudo luarocks install luacov-coveralls --server=http://rocks.moonscript.org/dev
+  - sudo luarocks install lunitx
 
 install:
-  - sudo luarocks install https://raw.githubusercontent.com/moteus/luacov/moteus-rockspec/rockspecs/luacov-scm.mot-1.rockspec
-  - sudo luarocks install luacov-coveralls scm
-  - sudo luarocks install lunitx
   - sudo luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
 
 script: 
