@@ -29,7 +29,6 @@ script:
 after_success:
   - coveralls -b .. -r .. --dump c.report.json
   - luacov-coveralls -j c.report.json
-  - curl -v --form "json_file=@luacov.report.json;type=application/json" https://coveralls.io/api/v1/jobs
 
 notifications:
   email:
