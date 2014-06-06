@@ -7,6 +7,7 @@ if [ "$LUA" == "luajit" ]; then
   curl http://luajit.org/download/LuaJIT-2.0.2.tar.gz | tar xz
   cd LuaJIT-2.0.2
   make && sudo make install
+  sudo ln -s /usr/local/bin/luajit /usr/local/bin/lua
   cd $TRAVIS_BUILD_DIR;
 else
   if [ "$LUA" == "lua5.1" ]; then

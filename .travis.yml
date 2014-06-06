@@ -5,9 +5,9 @@ env:
     - PLATFORM=linux
     - LUAROCKS_VER=2.2.0beta1
   matrix:
-    - LUA=lua5.1 LUA_SFX=
-    - LUA=lua5.2 LUA_SFX=
-    - LUA=luajit LUA_SFX=jit
+    - LUA=lua5.1
+    - LUA=lua5.2
+    - LUA=luajit
 
 branches:
   only:
@@ -15,8 +15,6 @@ branches:
 
 before_install:
   - bash .travis/setup_lua.sh
-  - which lua$LUA_SFX
-  - which lua
   - sudo pip install cpp-coveralls
   - sudo luarocks install luacov-coveralls --server=http://rocks.moonscript.org/dev
   - sudo luarocks install lunitx
@@ -26,7 +24,7 @@ install:
 
 script: 
   - cd test
-  - lunit.sh -i lua$LUA_SFX test.lua
+  - lunit.sh test.lua
 
 after_success:
   - coveralls -b .. -r .. --dump c.report.json
