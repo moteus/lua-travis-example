@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # A script for setting up environment for travis-ci testing.
 # Sets up Lua and Luarocks.
 # LUA must be "lua5.1", "lua5.2" or "luajit".
