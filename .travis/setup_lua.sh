@@ -13,7 +13,6 @@ if [ "$PLATFORM" == "osx" ]; then
   PLATFORM="macosx";
 fi
 
-# http://stackoverflow.com/questions/3466166/how-to-check-if-running-in-cygwin-mac-or-linuxluz-
 if [ -z "$PLATFORM" ]; then
   if [ "$(uname)" == "Linux" ]; then
     PLATFORM="linux";
@@ -21,17 +20,6 @@ if [ -z "$PLATFORM" ]; then
     PLATFORM="macosx";
   fi;
 fi
-
-echo "==========================="
-echo " uname      : $(uname)     "
-echo " uname      : $(uname -s)  "
-echo " uname      : $(expr substr $(uname -s) 1 5)"
-echo " Travis     : $TRAVIS_OS_NAME"
-echo " Platform   : $PLATFORM    "
-echo " Lua        : $LUA         "
-echo " LuaRocks   : $LUAROCKS    "
-echo "==========================="
-echo
 
 if [ "$LUA" == "luajit" ]; then
   curl http://luajit.org/download/LuaJIT-2.0.2.tar.gz | tar xz
