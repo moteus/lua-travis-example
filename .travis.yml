@@ -1,12 +1,12 @@
-language: erlang
+language: objective-c
 
 env:
   global:
    - LUAROCKS=2.2.0beta1
   matrix:
     - LUA=lua5.1
-    # - LUA=lua5.2
-    # - LUA=luajit
+    - LUA=lua5.2
+    - LUA=luajit
 
 branches:
   only:
