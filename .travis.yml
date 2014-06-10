@@ -5,10 +5,10 @@ env:
     - LUAROCKS=2.2.0beta1
   matrix:
     - LUA=lua5.1
-    - LUA=lua5.2
-    - LUA=luajit
-    - LUA=luajit2.0
-    - LUA=luajit2.1
+    # - LUA=lua5.2
+    # - LUA=luajit
+    # - LUA=luajit2.0
+    # - LUA=luajit2.1
 
 branches:
   only:

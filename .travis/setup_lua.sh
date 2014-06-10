@@ -7,22 +7,12 @@
 
 LUAJIT_BASE="LuaJIT-2.0.3"
 
-if [ -z "$PLATFORM" ]; then
-  PLATFORM=$TRAVIS_OS_NAME;
-fi
+source .travis/platform.sh
 
-if [ "$PLATFORM" == "osx" ]; then
-  PLATFORM="macosx";
-fi
-
-if [ -z "$PLATFORM" ]; then
-  if [ "$(uname)" == "Linux" ]; then
-    PLATFORM="linux";
-  else
-    PLATFORM="macosx";
-  fi;
-fi
-
+echo =============================
+echo Current platform: $PLATFORM
+echo =============================
+echo
 
 if [ "$(expr substr $LUA 1 6)" == "luajit" ]; then
 
