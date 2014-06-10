@@ -3,18 +3,30 @@
 # A script for setting up environment for travis-ci testing.
 # Sets up Lua and Luarocks.
 # LUA must be "lua5.1", "lua5.2" or "luajit".
-# PLATFORM must be "linux" or "macosx".
+# luajit2.0 - master v2.0
+# luajit2.1 - master v2.1
 
 LUAJIT_BASE="LuaJIT-2.0.3"
 
 source .travis/platform.sh
 
-echo =============================
-echo Current platform: $PLATFORM
-echo =============================
-echo
+LUAJIT="no"
 
-if [ "$(expr substr $LUA 1 6)" == "luajit" ]; then
+if [ "$PLATFORM" == "macosx" ]; then
+  if [ "$LUA" == "luajit" ]; then
+    LUAJIT="yes";
+  fi
+  if [ "$LUA" == "luajit2.0" ]; then
+    LUAJIT="yes";
+  fi
+  if [ "$LUA" == "luajit2.1" ]; then
+    LUAJIT="yes";
+  fi;
+elif [ "$(expr substr $LUA 1 6)" == "luajit" ]; then
+  LUAJIT="yes";
+fi
+
+if [ "$LUAJIT" == "yes" ]; then
 
   if [ "$LUA" == "luajit" ]; then
     curl http://luajit.org/download/$LUAJIT_BASE.tar.gz | tar xz;
@@ -70,7 +82,7 @@ cd $TRAVIS_BUILD_DIR
 
 rm -rf $LUAROCKS_BASE
 
-if [ "$(expr substr $LUA 1 6)" == "luajit" ]; then
+if [ "$LUAJIT" == "yes" ]; then
   rm -rf $LUAJIT_BASE;
 elif [ "$LUA" == "lua5.1" ]; then
   rm -rf lua-5.1.5;
