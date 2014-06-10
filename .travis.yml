@@ -1,4 +1,4 @@
-language: objective-c
+language: c
 
 env:
   global:
@@ -16,22 +16,20 @@ branches:
 
 before_install:
   - bash .travis/setup_lua.sh
-  # - sudo pip install cpp-coveralls
+  - sudo pip install cpp-coveralls
   - sudo luarocks install luacov-coveralls --server=http://rocks.moonscript.org/dev
   - sudo luarocks install lunitx
 
 install:
-  # - sudo luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
-  - sudo luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -I/usr/local/include -ftest-coverage -fprofile-arcs" LIBFLAG="-bundle -undefined dynamic_lookup -all_load --coverage"
+  - sudo luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
 
 script: 
   - cd test
   - lunit.sh test.lua
 
 after_success:
-  # - coveralls -b .. -r .. --dump c.report.json
-  # - luacov-coveralls -j c.report.json -v
-  - luacov-coveralls -v
+  - coveralls -b .. -r .. --dump c.report.json
+  - luacov-coveralls -j c.report.json -v
 
 notifications:
   email:
