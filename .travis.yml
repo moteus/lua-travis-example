@@ -7,15 +7,15 @@ env:
     - LUA=lua5.1
     - LUA=lua5.2
     - LUA=luajit
-    - LUA=luajit2.0
-    - LUA=luajit2.1
+    # - LUA=luajit2.0
+    # - LUA=luajit2.1
 
 branches:
   only:
     - master
 
 before_install:
-  - bash .travis/setup_lua.sh
+  - .travis/setup_lua.sh
   - sudo pip install cpp-coveralls
   - sudo luarocks install luacov-coveralls --server=http://rocks.moonscript.org/dev
   - sudo luarocks install lunitx
