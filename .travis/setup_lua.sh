@@ -63,8 +63,13 @@ fi
 cd $TRAVIS_BUILD_DIR;
 
 LUAROCKS_BASE=luarocks-$LUAROCKS
-curl http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz | tar xz
-cd $LUAROCKS_BASE;
+
+# curl http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz | tar xz
+
+git clone https://github.com/keplerproject/luarocks.git $LUAROCKS_BASE
+cd $LUAROCKS_BASE
+
+git checkout v$LUAROCKS
 
 if [ "$LUA" == "luajit" ]; then
   ./configure --lua-suffix=jit --with-lua-include=/usr/local/include/luajit-2.0;
