@@ -17,7 +17,8 @@ branches:
 before_install:
   - bash .travis/setup_lua.sh
   - sudo pip install cpp-coveralls
-  - sudo luarocks install luacov-coveralls
+  - sudo luarocks install Lua-cURL --server=http://rocks.moonscript.org/dev
+  - sudo luarocks install luacov-coveralls --server=http://rocks.moonscript.org/dev
   - sudo luarocks install lunitx
 
 install:
@@ -25,6 +26,7 @@ install:
 
 script: 
   - cd test
+  - lua -e "print(require'cURL'.version())"
   - lunit.sh test.lua
 
 after_success:
