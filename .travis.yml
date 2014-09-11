@@ -17,7 +17,7 @@ branches:
 before_install:
   - bash .travis/setup_lua.sh
   - sudo pip install cpp-coveralls
-  - sudo luarocks install luacov-coveralls --server=http://rocks.moonscript.org/dev
+  - sudo luarocks install luacov-coveralls
   - sudo luarocks install lunitx
 
 install:
