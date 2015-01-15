@@ -2,7 +2,12 @@
 [![Coverage Status](https://coveralls.io/repos/moteus/lua-travis-example/badge.png?branch=master)](https://coveralls.io/r/moteus/lua-travis-example?branch=master)
 [![Licence](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE)
 
-### Cons
- * Manual download luarocks with specific version
+### This project demonstrate howto:
+* Install Lua 5.1/5.2/5.3/JIT
+* Install LuaRocks
+* make and install Lua module contains C and Lua parts
+* Run test
+* Post coverage report to [coveralls.io](https://coveralls.io) service
 
- 
+### Todo:
+* Use container-based infrastructure on Travis.
