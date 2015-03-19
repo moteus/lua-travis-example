@@ -5,19 +5,26 @@ env:
     - LUAROCKS=2.2.1
   matrix:
     - LUA=lua5.1
-    - LUA=lua5.2
-    - LUA=lua5.3
-    - LUA=luajit
+    # - LUA=lua5.2
+    # - LUA=lua5.3
+    # - LUA=luajit
     # - LUA=luajit2.0
     # - LUA=luajit2.1
 
-branches:
-  only:
-    - master
+compiler:
+  - gcc
+
+os:
+  - linux
+  - osx
+
+# branches:
+#   only:
+#     - master
 
 before_install:
   - bash .travis/setup_lua.sh
-  - sudo pip install cpp-coveralls
+  - bash .travis/setup_cpp_cov.sh
   - sudo luarocks install Lua-cURL         --server=https://rocks.moonscript.org/dev
   - sudo luarocks install luacov-coveralls --server=https://rocks.moonscript.org/dev
   - sudo luarocks install lunitx
