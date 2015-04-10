@@ -1,5 +1,7 @@
 language: c
 
+sudo: false
+
 env:
   global:
     - LUAROCKS=2.2.1
@@ -8,22 +10,24 @@ env:
     - LUA=lua5.2
     - LUA=lua5.3
     - LUA=luajit
-    # - LUA=luajit2.0
-    # - LUA=luajit2.1
+    - LUA=luajit2.0
+    - LUA=luajit2.1
 
 branches:
   only:
     - master
 
 before_install:
+  - export PATH=${PATH}:$HOME/.lua:${TRAVIS_BUILD_DIR}/install/luarocks/bin
   - bash .travis/setup_lua.sh
-  - sudo pip install cpp-coveralls
-  - sudo luarocks install Lua-cURL         --server=https://rocks.moonscript.org/dev
-  - sudo luarocks install luacov-coveralls --server=https://rocks.moonscript.org/dev
-  - sudo luarocks install lunitx
+  - eval `luarocks path`
+  - pip install --user cpp-coveralls
+  - luarocks install Lua-cURL         --server=https://rocks.moonscript.org/dev
+  - luarocks install luacov-coveralls --server=https://rocks.moonscript.org/dev
+  - luarocks install lunitx
 
 install:
-  - sudo luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
+  - luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
 
 script: 
   - cd test
