@@ -12,6 +12,9 @@ LUAJIT_BASE="LuaJIT-2.0.3"
 
 source .travis/platform.sh
 
+LUA_HOME_DIR=$TRAVIS_BUILD_DIR/install/lua
+
+LR_HOME_DIR=$TRAVIS_BUILD_DIR/install/luarocks
 
 mkdir $HOME/.lua
 
@@ -31,6 +34,8 @@ elif [ "$(expr substr $LUA 1 6)" == "luajit" ]; then
   LUAJIT="yes";
 fi
 
+mkdir -p "$LUA_HOME_DIR"
+
 if [ "$LUAJIT" == "yes" ]; then
 
   if [ "$LUA" == "luajit" ]; then
@@ -45,19 +50,18 @@ if [ "$LUAJIT" == "yes" ]; then
     git checkout v2.1;
   fi
 
-  mkdir -p "$TRAVIS_BUILD_DIR/install/luajit"
-  make && make install PREFIX="$TRAVIS_BUILD_DIR/install/luajit"
+  make && make install PREFIX="$LUA_HOME_DIR"
 
   if [ "$LUA" == "luajit2.1" ]; then
-    ln -s $TRAVIS_BUILD_DIR/install/luajit/bin/luajit-2.1.0-alpha $HOME/.lua/luajit;
-    ln -s $TRAVIS_BUILD_DIR/install/luajit/bin/luajit-2.1.0-alpha $HOME/.lua/lua;
+    ln -s $LUA_HOME_DIR/bin/luajit-2.1.0-alpha $HOME/.lua/luajit
+    ln -s $LUA_HOME_DIR/bin/luajit-2.1.0-alpha $HOME/.lua/lua;
   else
-    ln -s $TRAVIS_BUILD_DIR/install/luajit/bin/luajit $HOME/.lua/luajit
-    ln -s $TRAVIS_BUILD_DIR/install/luajit/bin/luajit $HOME/.lua/lua
+    ln -s $LUA_HOME_DIR/bin/luajit $HOME/.lua/luajit
+    ln -s $LUA_HOME_DIR/bin/luajit $HOME/.lua/lua;
   fi;
-  lua -v
 
 else
+
   if [ "$LUA" == "lua5.1" ]; then
     curl http://www.lua.org/ftp/lua-5.1.5.tar.gz | tar xz
     cd lua-5.1.5;
@@ -68,16 +72,18 @@ else
     curl http://www.lua.org/ftp/lua-5.3.0.tar.gz | tar xz
     cd lua-5.3.0;
   fi
-  mkdir -p "$TRAVIS_BUILD_DIR/install/lua"
-  make $PLATFORM
-  make INSTALL_TOP="$TRAVIS_BUILD_DIR/install/lua" install;
 
-  ln -s $TRAVIS_BUILD_DIR/install/lua/bin/lua $HOME/.lua/lua
-  ln -s $TRAVIS_BUILD_DIR/install/lua/bin/luac $HOME/.lua/luac
-  lua -v
+  make $PLATFORM
+  make INSTALL_TOP="$LUA_HOME_DIR" install;
+
+  ln -s $LUA_HOME_DIR/bin/lua $HOME/.lua/lua
+  ln -s $LUA_HOME_DIR/bin/luac $HOME/.lua/luac;
+
 fi
 
-cd $TRAVIS_BUILD_DIR;
+cd $TRAVIS_BUILD_DIR
+
+lua -v
 
 LUAROCKS_BASE=luarocks-$LUAROCKS
 
@@ -86,21 +92,22 @@ curl --location http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz | tar xz
 cd $LUAROCKS_BASE
 
 if [ "$LUA" == "luajit" ]; then
-  ./configure --lua-suffix=jit --with-lua-include="$TRAVIS_BUILD_DIR/install/luajit/include/luajit-2.0" --prefix="$TRAVIS_BUILD_DIR/install/luarocks";
+  ./configure --lua-suffix=jit --with-lua-include="$LUA_HOME_DIR/include/luajit-2.0" --prefix="$LR_HOME_DIR";
 elif [ "$LUA" == "luajit2.0" ]; then
-  ./configure --lua-suffix=jit --with-lua-include="$TRAVIS_BUILD_DIR/install/luajit/include/luajit-2.0" --prefix="$TRAVIS_BUILD_DIR/install/luarocks";
+  ./configure --lua-suffix=jit --with-lua-include="$LUA_HOME_DIR/include/luajit-2.0" --prefix="$LR_HOME_DIR";
 elif [ "$LUA" == "luajit2.1" ]; then
-  ./configure --lua-suffix=jit --with-lua-include="$TRAVIS_BUILD_DIR/install/luajit/include/luajit-2.1" --prefix="$TRAVIS_BUILD_DIR/install/luarocks";
+  ./configure --lua-suffix=jit --with-lua-include="$LUA_HOME_DIR/include/luajit-2.1" --prefix="$LR_HOME_DIR";
 else
-  ./configure --with-lua="$TRAVIS_BUILD_DIR/install/lua" --prefix="$TRAVIS_BUILD_DIR/install/luarocks"
+  ./configure --with-lua="$LUA_HOME_DIR" --prefix="$LR_HOME_DIR"
 fi
 
 make build && make install
 
-ln -s $TRAVIS_BUILD_DIR/install/luarocks/bin/luarocks $HOME/.lua/luarocks
-luarocks --version
+ln -s $LR_HOME_DIR/bin/luarocks $HOME/.lua/luarocks
 
 cd $TRAVIS_BUILD_DIR
+
+luarocks --version
 
 rm -rf $LUAROCKS_BASE
 

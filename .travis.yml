@@ -18,9 +18,7 @@ branches:
     - master
 
 before_install:
-  - export PATH=${PATH}:$HOME/.lua:${TRAVIS_BUILD_DIR}/install/luarocks/bin
-  - bash .travis/setup_lua.sh
-  - eval `luarocks path`
+  - source .travis/setenv_lua.sh
   - pip install --user cpp-coveralls
   - luarocks install Lua-cURL         --server=https://rocks.moonscript.org/dev
   - luarocks install luacov-coveralls --server=https://rocks.moonscript.org/dev
