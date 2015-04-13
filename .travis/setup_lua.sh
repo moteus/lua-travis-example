@@ -12,6 +12,9 @@ LUAJIT_BASE="LuaJIT-2.0.3"
 
 source .travis/platform.sh
 
+
+mkdir $HOME/.lua
+
 LUAJIT="no"
 
 if [ "$PLATFORM" == "macosx" ]; then
@@ -42,14 +45,17 @@ if [ "$LUAJIT" == "yes" ]; then
     git checkout v2.1;
   fi
 
-  make && sudo make install
+  mkdir -p "$TRAVIS_BUILD_DIR/install/luajit"
+  make && make install PREFIX="$TRAVIS_BUILD_DIR/install/luajit"
 
   if [ "$LUA" == "luajit2.1" ]; then
-    sudo ln -s /usr/local/bin/luajit-2.1.0-alpha /usr/local/bin/luajit
-    sudo ln -s /usr/local/bin/luajit /usr/local/bin/lua;
+    ln -s $TRAVIS_BUILD_DIR/install/luajit/bin/luajit-2.1.0-alpha $HOME/.lua/luajit;
+    ln -s $TRAVIS_BUILD_DIR/install/luajit/bin/luajit-2.1.0-alpha $HOME/.lua/lua;
   else
-    sudo ln -s /usr/local/bin/luajit /usr/local/bin/lua;
+    ln -s $TRAVIS_BUILD_DIR/install/luajit/bin/luajit $HOME/.lua/luajit
+    ln -s $TRAVIS_BUILD_DIR/install/luajit/bin/luajit $HOME/.lua/lua
   fi;
+  lua -v
 
 else
   if [ "$LUA" == "lua5.1" ]; then
@@ -62,31 +68,37 @@ else
     curl http://www.lua.org/ftp/lua-5.3.0.tar.gz | tar xz
     cd lua-5.3.0;
   fi
-  sudo make $PLATFORM install;
+  mkdir -p "$TRAVIS_BUILD_DIR/install/lua"
+  make $PLATFORM
+  make INSTALL_TOP="$TRAVIS_BUILD_DIR/install/lua" install;
+
+  ln -s $TRAVIS_BUILD_DIR/install/lua/bin/lua $HOME/.lua/lua
+  ln -s $TRAVIS_BUILD_DIR/install/lua/bin/luac $HOME/.lua/luac
+  lua -v
 fi
 
 cd $TRAVIS_BUILD_DIR;
 
 LUAROCKS_BASE=luarocks-$LUAROCKS
 
-# curl http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz | tar xz
+curl --location http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz | tar xz
 
-git clone https://github.com/keplerproject/luarocks.git $LUAROCKS_BASE
 cd $LUAROCKS_BASE
 
-git checkout v$LUAROCKS
-
 if [ "$LUA" == "luajit" ]; then
-  ./configure --lua-suffix=jit --with-lua-include=/usr/local/include/luajit-2.0;
+  ./configure --lua-suffix=jit --with-lua-include="$TRAVIS_BUILD_DIR/install/luajit/include/luajit-2.0" --prefix="$TRAVIS_BUILD_DIR/install/luarocks";
 elif [ "$LUA" == "luajit2.0" ]; then
-  ./configure --lua-suffix=jit --with-lua-include=/usr/local/include/luajit-2.0;
+  ./configure --lua-suffix=jit --with-lua-include="$TRAVIS_BUILD_DIR/install/luajit/include/luajit-2.0" --prefix="$TRAVIS_BUILD_DIR/install/luarocks";
 elif [ "$LUA" == "luajit2.1" ]; then
-  ./configure --lua-suffix=jit --with-lua-include=/usr/local/include/luajit-2.1;
+  ./configure --lua-suffix=jit --with-lua-include="$TRAVIS_BUILD_DIR/install/luajit/include/luajit-2.1" --prefix="$TRAVIS_BUILD_DIR/install/luarocks";
 else
-  ./configure;
+  ./configure --with-lua="$TRAVIS_BUILD_DIR/install/lua" --prefix="$TRAVIS_BUILD_DIR/install/luarocks"
 fi
 
-make build && sudo make install
+make build && make install
+
+ln -s $TRAVIS_BUILD_DIR/install/luarocks/bin/luarocks $HOME/.lua/luarocks
+luarocks --version
 
 cd $TRAVIS_BUILD_DIR
 

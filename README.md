@@ -8,6 +8,3 @@
 * make and install Lua module contains C and Lua parts
 * Run test
 * Post coverage report to [coveralls.io](https://coveralls.io) service
-
-### Todo:
-* Use container-based infrastructure on Travis.
