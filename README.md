@@ -15,6 +15,7 @@ LuaJIT can be tested using latest stable release (2.0.3) and also current master
 
 ### [CodeShip](https://codeship.com)
 [![Codeship Status for moteus/lua-travis-example](https://codeship.com/projects/a57c55e0-c4b7-0132-9bce-0a3d9756066d/status?branch=master)](https://codeship.com/projects/74177)
+
 Test environment contain Lua 5.1.2/LuaRocks 2.0.8.
 To use this luarocks you should use local tree to install Lua modules.
 But also you can use this install script
