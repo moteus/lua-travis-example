@@ -6,13 +6,13 @@ return {
 
   -- default filename to load for config options if not provided
   -- only has effect in 'luacov.defaults.lua'
-  ["configfile"] = ".luacov",
+  configfile = ".luacov",
 
   -- filename to store stats collected
-  ["statsfile"] = "luacov.stats.out",
+  statsfile = "luacov.stats.out",
 
   -- filename to store report
-  ["reportfile"] = "luacov.report.json",
+  reportfile = "luacov.report.json",
 
   -- Run reporter on completion? (won't work for ticks)
   runreport = false,
@@ -24,7 +24,7 @@ return {
   -- all will be included if nothing is listed
   -- (exclude overrules include, do not include
   -- the .lua extension)
-  ["include"] = {
+  include = {
     "/foo$",
     "/foo/.+$",
   },
@@ -33,15 +33,15 @@ return {
   -- all will be included if nothing is listed
   -- (exclude overrules include, do not include
   -- the .lua extension)
-  ["exclude"] = {
+  exclude = {
   },
 
   -- configuration for luacov-coveralls reporter
-  ["coveralls"] = {
+  coveralls = {
 
-    -- ["debug"] = true;
+    -- debug = true;
 
-    ["pathcorrect"] = {
+    pathcorrect = {
       {"/usr/local/share/lua/5.%d", "src/lua"};
     },
 
