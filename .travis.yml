@@ -33,7 +33,7 @@ script:
   - lunit.sh test.lua
 
 after_success:
-  - coveralls -b .. -r .. --dump c.report.json
+  - coveralls -b .. -r .. -i ./src --dump c.report.json
   - luacov-coveralls -j c.report.json -v
 
 notifications:
