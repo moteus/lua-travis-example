@@ -20,14 +20,14 @@ branches:
 before_install:
   - source .travis/setenv_lua.sh
   - pip install --user cpp-coveralls
-  - luarocks install Lua-cURL         --server=https://rocks.moonscript.org/dev
-  - luarocks install luacov-coveralls --server=https://rocks.moonscript.org/dev
+  - luarocks install Lua-cURL         --server=https://luarocks.org/dev
+  - luarocks install luacov-coveralls --server=https://luarocks.org/dev
   - luarocks install lunitx
 
 install:
   - luarocks make rockspecs/foo-scm-0.rockspec CFLAGS="-O2 -fPIC -ftest-coverage -fprofile-arcs" LIBFLAG="-shared --coverage"
 
-script: 
+script:
   - cd test
   - lua -e "print(require'cURL'.version())"
   - lunit.sh test.lua
