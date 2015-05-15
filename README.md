@@ -9,7 +9,7 @@
 * Run tests
 * Post coverage report to [coveralls.io](https://coveralls.io) service
 
-LuaJIT can be tested using latest stable release (2.0.3) and also current master branches of LuaJIT 2.0 and 2.1. These options map onto 'luajit', 'luajit2.0' and 'luajit2.1' in the test matrix, respectively.
+LuaJIT can be tested using latest stable release (2.0.4) and also current master branches of LuaJIT 2.0 and 2.1. These options map onto 'luajit', 'luajit2.0' and 'luajit2.1' in the test matrix, respectively.
 
 ## Other CI
 
@@ -26,8 +26,8 @@ export LUA=lua5.3
 export TRAVIS_BUILD_DIR=$(pwd)
 export TRAVIS_OS_NAME=linux
 source .travis/setenv_lua.sh
-$HOME/.lua/luarocks install Lua-cURL         --server=https://rocks.moonscript.org/dev
-$HOME/.lua/luarocks install luacov-coveralls --server=https://rocks.moonscript.org/dev
+$HOME/.lua/luarocks install Lua-cURL         --server=https://luarocks.org/dev
+$HOME/.lua/luarocks install luacov-coveralls --server=https://luarocks.org/dev
 $HOME/.lua/luarocks install lunitx
 $HOME/.lua/luarocks make rockspecs/foo-scm-0.rockspec
 ```
